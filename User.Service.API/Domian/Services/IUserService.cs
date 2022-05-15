@@ -9,7 +9,7 @@ namespace User.Service.API.Domian.Services
     public interface IUserService
     {
         Task<int> AddAsync(UserEntity user);
-        Task UpdateAsync(UserEntity updateUser);
+        Task UpdateAsync(int userID, UserEntity updateUser);
         Task DeleteAsync(int userID);
     }
 }

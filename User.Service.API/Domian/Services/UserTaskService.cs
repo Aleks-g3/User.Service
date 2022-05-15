@@ -43,15 +43,28 @@ namespace User.Service.API.Domian.Services
             await userTaskRepository.UpdateAsync(userTask);
         }
 
-        public async Task UpdateAsync(int userID, UserTask updateUserTask)
+        public async Task UpdateAsync(int userID, int userTaskID, UserTask updateUserTask)
         {
             await GetUserAsync(userID);
 
-            var userTask = await GetUserTaskByIDAsync(updateUserTask.ID);
+            var userTask = await GetUserTaskByIDAsync(userTaskID);
 
             userTask.Update(updateUserTask);
 
             await userTaskRepository.UpdateAsync(userTask);
+        }
+
+        public async Task<IList<UserTask>> GetByUserIDAsync(int userID)
+        {
+            await GetUserAsync(userID);
+            return await userTaskRepository.GetByUserIDAsync(userID);
+        }
+
+        public async Task<UserTask> GetByIDAsync(int userID, int userTaskID)
+        {
+            await GetUserAsync(userID);
+
+            return await GetUserTaskByIDAsync(userTaskID);
         }
 
         private async Task<UserEntity> GetUserAsync(int userID)

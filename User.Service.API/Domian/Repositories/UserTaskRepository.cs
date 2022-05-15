@@ -35,6 +35,11 @@ namespace User.Service.API.Domian.Repositories
             return context.UserTasks.FirstOrDefaultAsync(t => t.Title == title && !t.IsDeleted);
         }
 
+        public async Task<IList<UserTask>> GetByUserIDAsync(int userID)
+        {
+            return await context.UserTasks.Where(t => t.UserID == userID && !t.IsDeleted).ToListAsync();
+        }
+
         public async Task UpdateAsync(UserTask updateUserTask)
         {
             context.UserTasks.Update(updateUserTask);

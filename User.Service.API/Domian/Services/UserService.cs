@@ -42,9 +42,9 @@ namespace User.Service.API.Domian.Services
             await userRepository.UpdateAsync(user);
         }
 
-        public async Task UpdateAsync(UserEntity updateUser)
+        public async Task UpdateAsync(int userID , UserEntity updateUser)
         {
-            var user = await GetUserAsync(updateUser.ID);
+            var user = await GetUserAsync(userID);
 
             if(updateUser.Name==user.Name && updateUser.Surname == user.Surname)
             {

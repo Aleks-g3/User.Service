@@ -13,5 +13,6 @@ namespace User.Service.API.Domian.Repositories
         Task<IList<UserTask>> GetAllAsync();
         Task<UserTask> GetByIDAsync(int userTaskID);
         Task<UserTask> GetByTitleAsync(string title);
+        Task<IList<UserTask>> GetByUserIDAsync(int userID);
     }
 }
