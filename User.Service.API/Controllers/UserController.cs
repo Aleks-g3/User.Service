@@ -32,7 +32,7 @@ namespace User.Service.API.Controllers
         }
 
         [HttpPut("{userID}")]
-        public async Task<IActionResult> UpdateAsync([FromQuery]int userID, [FromBody] UserFormDTO userFormDTO)
+        public async Task<IActionResult> UpdateAsync(int userID, [FromBody] UserFormDTO userFormDTO)
         {
             var user = _mapper.Map<UserEntity>(userFormDTO);
             await userService.UpdateAsync(userID, user);
@@ -40,14 +40,14 @@ namespace User.Service.API.Controllers
         }
 
         [HttpDelete("{userID}")]
-        public async Task<IActionResult> DeleteAsync([FromQuery] int userID)
+        public async Task<IActionResult> DeleteAsync(int userID)
         {
             await userService.DeleteAsync(userID);
             return Ok();
         }
 
         [HttpGet("{userID}")]
-        public async Task<IActionResult> GetAsync([FromServices] IUserRepository userRepository,[FromQuery] int userID)
+        public async Task<IActionResult> GetAsync([FromServices] IUserRepository userRepository,int userID)
         {
             var user = await userRepository.GetByIDAsync(userID);
             return Ok(_mapper.Map<UserDTO>(user));

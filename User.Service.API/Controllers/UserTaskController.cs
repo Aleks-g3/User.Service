@@ -23,7 +23,7 @@ namespace User.Service.API.Controllers
         }
 
         [HttpPost("{userID}/user-task")]
-        public async Task<IActionResult> CreateAsync([FromQuery]int userID, [FromBody] UserTaskFormDTO userTaskFormDTO)
+        public async Task<IActionResult> CreateAsync(int userID, [FromBody] UserTaskFormDTO userTaskFormDTO)
         {
             var userTask = mapper.Map<UserTask>(userTaskFormDTO);
             var result = await userTaskService.AddAsync(userID, userTask);
@@ -32,7 +32,7 @@ namespace User.Service.API.Controllers
         }
 
         [HttpPut("{userID}/user-task/{userTaskID}")]
-        public async Task<IActionResult> UpdateAsync([FromQuery] int userID, [FromQuery] int userTaskID, [FromBody] UserTaskFormDTO userTaskFormDTO)
+        public async Task<IActionResult> UpdateAsync(int userID, int userTaskID, [FromBody] UserTaskFormDTO userTaskFormDTO)
         {
             var userTask = mapper.Map<UserTask>(userTaskFormDTO);
             await userTaskService.UpdateAsync(userID, userTaskID, userTask);
@@ -40,14 +40,14 @@ namespace User.Service.API.Controllers
         }
 
         [HttpDelete("user-task/{userTaskID}")]
-        public async Task<IActionResult> CreateAsync([FromQuery] int userTaskID)
+        public async Task<IActionResult> CreateAsync(int userTaskID)
         {
             await userTaskService.DeleteAsync(userTaskID);
             return Ok();
         }
 
         [HttpGet("{userID}/user-tasks")]
-        public async Task<IActionResult> GetByUserIDAsync([FromQuery] int userID)
+        public async Task<IActionResult> GetByUserIDAsync(int userID)
         {
             var userTasks = await userTaskService.GetByUserIDAsync(userID); ;
 
@@ -55,7 +55,7 @@ namespace User.Service.API.Controllers
         }
 
         [HttpGet("{userID}/user-task/{userTaskID}")]
-        public async Task<IActionResult> GetByUserIDAsync([FromQuery] int userID,[FromQuery] int userTaskID)
+        public async Task<IActionResult> GetByUserIDAsync(int userID, int userTaskID)
         {
             var userTask = await userTaskService.GetByIDAsync(userID,userTaskID);
 

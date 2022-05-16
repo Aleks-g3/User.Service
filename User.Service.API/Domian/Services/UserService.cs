@@ -25,10 +25,7 @@ namespace User.Service.API.Domian.Services
                 throw new Exception("User existed");
             }
 
-            if(string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Surname))
-            {
-                throw new Exception("Name or surename are empty");
-            }
+            ValidationUserData(user);
 
             return await userRepository.AddAsync(user);
         }
@@ -51,7 +48,11 @@ namespace User.Service.API.Domian.Services
                 throw new Exception("Name and surname are equals as for existed user");
             }
 
-            await userRepository.UpdateAsync(updateUser);
+            ValidationUserData(updateUser);
+
+            user.Update(updateUser);
+
+            await userRepository.UpdateAsync(user);
         }
 
         private async Task<UserEntity> GetUserAsync(int userID)
@@ -64,6 +65,14 @@ namespace User.Service.API.Domian.Services
             }
 
             return user;
+        }
+
+        private void ValidationUserData(UserEntity user)
+        {
+            if (string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Surname))
+            {
+                throw new Exception("Name or surename are empty");
+            }
         }
     }
 }

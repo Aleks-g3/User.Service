@@ -22,9 +22,9 @@ namespace User.Service.API.Domian.Services
         {
             var user = await GetUserAsync(userID);
 
-            var existedUserTask = await GetUserTaskByTitleAsync(userTask.Title);
+            var existedUserTask = await userTaskRepository.GetByTitleAsync(userTask.Title);
 
-            if(existedUserTask!= null)
+            if (existedUserTask!= null)
             {
                 throw new Exception("User Task existed");
             }
@@ -79,17 +79,6 @@ namespace User.Service.API.Domian.Services
             return user;
         }
 
-        private async Task<UserTask> GetUserTaskByTitleAsync(string title)
-        {
-            var userTask = await userTaskRepository.GetByTitleAsync(title);
-
-            if (userTask == null)
-            {
-                throw new Exception("User Task not existed");
-            }
-
-            return userTask;
-        }
 
         private async Task<UserTask> GetUserTaskByIDAsync(int userTaskID)
         {
